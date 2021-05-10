@@ -173,6 +173,55 @@ public class Test_Script
         return answer;
     }
 
+    /// <summary>
+    /// rows x columns 크기인 행렬이 있습니다. 행렬에는 1부터 rows x columns까지의 숫자가 한 줄씩 순서대로 적혀있습니다. 
+    /// 이 행렬에서 직사각형 모양의 범위를 여러 번 선택해, 테두리 부분에 있는 숫자들을 시계방향으로 회전시키려 합니다. 
+    /// 각 회전은 (x1, y1, x2, y2)인 정수 4개로 표현하며, 그 의미는 다음과 같습니다.
+    /// x1 행 y1 열부터 x2 행 y2 열까지의 영역에 해당하는 직사각형에서 테두리에 있는 숫자들을 한 칸씩 시계방향으로 회전합니다.
+    /// 각 회전들을 배열에 적용한 뒤, 그 회전에 의해 위치가 바뀐 숫자들 중 가장 작은 숫자들을 순서대로 배열에 담아 return 하도록 solution 함수를 완성해주세요.
+    /// </summary>
+    /// <param name="rows"></param>
+    /// <param name="columns"></param>
+    /// <param name="queries"></param>
+    /// <returns></returns>
+    public int[] solution6(int rows, int columns, int[,] queries)
+    {
+        int[,] SquareArray = new int[rows, columns];
+        int num = 1;
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                SquareArray[i, j] = num;
+                num++;
+            }
+        }
+        int[] answer = new int[queries.Length / queries.GetLength(0)];
+        for (int a = 0; a < answer.Length; a++)
+        {
+            int TempArrayNum = 2 * (queries[0, 2] + queries[0, 3] - queries[0, 1] - queries[0, 0]);
+            int[] TempArray = new int[TempArrayNum];
+            int TempNum = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    if(i== queries[0, 0] || i == queries[0, 2] || j == queries[0, 1] || j == queries[0, 3])
+                    {
+                        TempArray[TempNum] = SquareArray[i, j];
+                        TempNum++;
+                    }
+                }
+            }
+
+            int t = TempArray[0];
+            for (int i = 0; i < TempArray.Length; i++) { if (t > TempArray[i]) t = TempArray[i]; }
+            answer[a] = t;
+        }
+        return answer;
+    }
+
     void Start()
     {
         
