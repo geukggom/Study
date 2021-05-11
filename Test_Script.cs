@@ -186,38 +186,77 @@ public class Test_Script
     /// <returns></returns>
     public int[] solution6(int rows, int columns, int[,] queries)
     {
-        int[,] SquareArray = new int[rows, columns];
-        int num = 1;
-        for (int i = 0; i < rows; i++)
+        int[] answer = new int[queries.GetLength(0)];
+
+        //int[,] SquareArray = new int[rows, columns];
+        //int num = 1;
+        //for (int i = 0; i < rows; i++)
+        //{
+        //    for (int j = 0; j < columns; j++)
+        //    {
+        //        SquareArray[i, j] = num;
+        //        num++;
+        //    }
+        //}
+        //for (int a = 0; a < answer.Length; a++)
+        //{
+        //    int TempArrayNum = 2 * (queries[0, 2] + queries[0, 3] - queries[0, 1] - queries[0, 0]);
+            //int[] TempArray = new int[TempArrayNum];
+            //int TempNum = 0;
+
+        //    for (int i = 0; i < rows; i++)
+        //    {
+        //        for (int j = 0; j < columns; j++)
+        //        {
+        //            if ((i == queries[0, 0] && (j < queries[0, 3] && j >= queries[0, 1])) || (j == queries[0, 3] && (i <= queries[0, 2] && i > queries[0, 0])))
+        //            {
+        //                TempArray[TempNum] = SquareArray[i, j];
+        //                if (TempNum != 0) SquareArray[i, j] = TempArray[TempNum - 1];
+        //                TempNum++;
+        //            }
+        //        }
+        //    }
+        //    for (int i = rows - 1; i < -1; i--)
+        //    {
+        //        for (int j = columns - 1; j < -1; j--)
+        //        {
+        //            if ((i == queries[0, 2] && (j < queries[0, 3] && j >= queries[0, 1])) || (j == queries[0, 1] && (j < queries[0, 3] && j >= queries[0, 1])))
+        //            {
+        //                TempArray[TempNum] = SquareArray[i, j];
+        //                if (TempNum != TempArrayNum - 1) SquareArray[i, j] = TempArray[TempNum - 1];
+        //                else SquareArray[i, j] = TempArray[0];
+        //                TempNum++;
+        //            }
+        //        }
+        //    }
+
+        //    int t = TempArray[0];
+        //    for (int i = 0; i < TempArray.Length; i++) { if (t > TempArray[i]) t = TempArray[i]; }
+        //    answer[a] = t;
+        //}
+        return answer;
+    }
+
+    /// <summary>
+    /// 두 정수 a, b가 주어졌을 때 a와 b 사이에 속한 모든 정수의 합을 리턴하는 함수, solution을 완성하세요.
+    /// 예를 들어 a = 3, b = 5인 경우, 3 + 4 + 5 = 12이므로 12를 리턴합니다.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public long solution7(int a, int b)
+    {
+        int answer = 0;
+        if (a > b)
         {
-            for (int j = 0; j < columns; j++)
-            {
-                SquareArray[i, j] = num;
-                num++;
-            }
+            int temp = a;
+            a = b;
+            b = temp;
         }
-        int[] answer = new int[queries.Length / queries.GetLength(0)];
-        for (int a = 0; a < answer.Length; a++)
+        else if (a == b) return a;
+        for (int i = a; i < b + 1; i++)
         {
-            int TempArrayNum = 2 * (queries[0, 2] + queries[0, 3] - queries[0, 1] - queries[0, 0]);
-            int[] TempArray = new int[TempArrayNum];
-            int TempNum = 0;
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    if(i== queries[0, 0] || i == queries[0, 2] || j == queries[0, 1] || j == queries[0, 3])
-                    {
-                        TempArray[TempNum] = SquareArray[i, j];
-                        TempNum++;
-                    }
-                }
-            }
-
-            int t = TempArray[0];
-            for (int i = 0; i < TempArray.Length; i++) { if (t > TempArray[i]) t = TempArray[i]; }
-            answer[a] = t;
+            answer += i;
         }
         return answer;
     }
