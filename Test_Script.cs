@@ -174,77 +174,13 @@ public class Test_Script
     }
 
     /// <summary>
-    /// rows x columns 크기인 행렬이 있습니다. 행렬에는 1부터 rows x columns까지의 숫자가 한 줄씩 순서대로 적혀있습니다. 
-    /// 이 행렬에서 직사각형 모양의 범위를 여러 번 선택해, 테두리 부분에 있는 숫자들을 시계방향으로 회전시키려 합니다. 
-    /// 각 회전은 (x1, y1, x2, y2)인 정수 4개로 표현하며, 그 의미는 다음과 같습니다.
-    /// x1 행 y1 열부터 x2 행 y2 열까지의 영역에 해당하는 직사각형에서 테두리에 있는 숫자들을 한 칸씩 시계방향으로 회전합니다.
-    /// 각 회전들을 배열에 적용한 뒤, 그 회전에 의해 위치가 바뀐 숫자들 중 가장 작은 숫자들을 순서대로 배열에 담아 return 하도록 solution 함수를 완성해주세요.
-    /// </summary>
-    /// <param name="rows"></param>
-    /// <param name="columns"></param>
-    /// <param name="queries"></param>
-    /// <returns></returns>
-    public int[] solution6(int rows, int columns, int[,] queries)
-    {
-        int[] answer = new int[queries.GetLength(0)];
-
-        //int[,] SquareArray = new int[rows, columns];
-        //int num = 1;
-        //for (int i = 0; i < rows; i++)
-        //{
-        //    for (int j = 0; j < columns; j++)
-        //    {
-        //        SquareArray[i, j] = num;
-        //        num++;
-        //    }
-        //}
-        //for (int a = 0; a < answer.Length; a++)
-        //{
-        //    int TempArrayNum = 2 * (queries[0, 2] + queries[0, 3] - queries[0, 1] - queries[0, 0]);
-            //int[] TempArray = new int[TempArrayNum];
-            //int TempNum = 0;
-
-        //    for (int i = 0; i < rows; i++)
-        //    {
-        //        for (int j = 0; j < columns; j++)
-        //        {
-        //            if ((i == queries[0, 0] && (j < queries[0, 3] && j >= queries[0, 1])) || (j == queries[0, 3] && (i <= queries[0, 2] && i > queries[0, 0])))
-        //            {
-        //                TempArray[TempNum] = SquareArray[i, j];
-        //                if (TempNum != 0) SquareArray[i, j] = TempArray[TempNum - 1];
-        //                TempNum++;
-        //            }
-        //        }
-        //    }
-        //    for (int i = rows - 1; i < -1; i--)
-        //    {
-        //        for (int j = columns - 1; j < -1; j--)
-        //        {
-        //            if ((i == queries[0, 2] && (j < queries[0, 3] && j >= queries[0, 1])) || (j == queries[0, 1] && (j < queries[0, 3] && j >= queries[0, 1])))
-        //            {
-        //                TempArray[TempNum] = SquareArray[i, j];
-        //                if (TempNum != TempArrayNum - 1) SquareArray[i, j] = TempArray[TempNum - 1];
-        //                else SquareArray[i, j] = TempArray[0];
-        //                TempNum++;
-        //            }
-        //        }
-        //    }
-
-        //    int t = TempArray[0];
-        //    for (int i = 0; i < TempArray.Length; i++) { if (t > TempArray[i]) t = TempArray[i]; }
-        //    answer[a] = t;
-        //}
-        return answer;
-    }
-
-    /// <summary>
     /// 두 정수 a, b가 주어졌을 때 a와 b 사이에 속한 모든 정수의 합을 리턴하는 함수, solution을 완성하세요.
     /// 예를 들어 a = 3, b = 5인 경우, 3 + 4 + 5 = 12이므로 12를 리턴합니다.
     /// </summary>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    public long solution7(int a, int b)
+    public long solution6(int a, int b)
     {
         int answer = 0;
         if (a > b)
@@ -257,6 +193,54 @@ public class Test_Script
         for (int i = a; i < b + 1; i++)
         {
             answer += i;
+        }
+        return answer;
+    }
+
+    /// <summary>
+    /// 수포자는 수학을 포기한 사람의 준말입니다. 수포자 삼인방은 모의고사에 수학 문제를 전부 찍으려 합니다. 수포자는 1번 문제부터 마지막 문제까지 다음과 같이 찍습니다.
+    /// 1번 수포자가 찍는 방식: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, ...
+    /// 2번 수포자가 찍는 방식: 2, 1, 2, 3, 2, 4, 2, 5, 2, 1, 2, 3, 2, 4, 2, 5, ...
+    /// 3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
+    /// </summary>
+    /// <param name="answers">정답인 배열</param>
+    /// <returns></returns>
+    public int[] solution7(int[] answers)
+    {
+        int best = 0;
+        int correct = 0;
+        int[] person1 = new int[5] { 1, 2, 3, 4, 5 }; 
+        int[] person2 = new int[8] { 2, 1, 2, 3, 2, 4, 2, 5 }; 
+        int[] person3 = new int[10] { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 };
+        int[] correctAnswer = new int[3];
+        for (int a = 0; a < 3; a++)
+        {
+            correctAnswer[a] = 0;
+            int[] person = new int[] { };
+            if (a == 0) person = person1; 
+            else if (a == 1) person = person2; 
+            else person = person3; 
+            for (int i = 0; i < answers.Length; i++)
+            {
+                if (person[i % person.Length] == answers[i]) correctAnswer[a]++;
+            }
+            if (correctAnswer[a] > best)
+            {
+                best = correctAnswer[a];
+                correct = 1;
+            }
+            else if(correctAnswer[a] == best) correct++;
+
+        }
+        int[] answer = new int[correct];
+        int newindex = 0;
+        for (int i = 0; i < correctAnswer.Length; i++)
+        {
+            if (correctAnswer[i] == best)
+            {
+                answer[newindex] = i + 1;
+                newindex++;
+            }
         }
         return answer;
     }
