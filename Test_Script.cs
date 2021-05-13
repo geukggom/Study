@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Test_Script
 {
@@ -243,6 +244,32 @@ public class Test_Script
             }
         }
         return answer;
+    }
+    public int[] solution7Again(int[] answers)
+    {
+        int best = 0;
+        int[] person1 = new int[5] { 1, 2, 3, 4, 5 };
+        int[] person2 = new int[8] { 2, 1, 2, 3, 2, 4, 2, 5 };
+        int[] person3 = new int[10] { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 };
+        List<int> answer = new List<int>();
+        int[] correctAnswer = new int[3];
+        for (int i = 0; i < answers.Length; i++)
+        {
+            if (person1[i % person1.Length] == answers[i]) ++correctAnswer[0];
+            if (person2[i % person2.Length] == answers[i]) ++correctAnswer[1];
+            if (person3[i % person3.Length] == answers[i]) ++correctAnswer[2];
+        }
+        for (int i = 0; i < correctAnswer.Length; i++)
+        {
+            if(correctAnswer[i] > best)
+            {
+                best = correctAnswer[i];
+                answer.Clear();
+                answer.Add(i + 1);
+            }
+            else if(correctAnswer[i] == best) { answer.Add(i+1); }
+        }
+        return answer.ToArray();
     }
 
     void Start()
