@@ -390,6 +390,20 @@ public class Test_Script
         }
         return answerNum.ToArray();
     }
+    public int[] solution10Again(int[] numbers)
+    {
+        List<int> answerNum = new List<int>();
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            for (int j = i + 1; j < numbers.Length; j++)
+            {
+                int plusNum = numbers[i] + numbers[j];
+                if (answerNum.Contains(plusNum)) answerNum.Add(plusNum);
+            }
+        }
+        answerNum.Sort();
+        return answerNum.ToArray();
+    }
 
     void Start()
     {
