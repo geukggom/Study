@@ -582,6 +582,61 @@ public class Test_Script
         return answer;
     }
 
+    /// <summary>
+    /// 한자리 숫자가 적힌 종이 조각이 흩어져있습니다. 흩어진 종이 조각을 붙여 소수를 몇 개 만들 수 있는지 알아내려 합니다.
+    /// 각 종이 조각에 적힌 숫자가 적힌 문자열 numbers가 주어졌을 때, 종이 조각으로 만들 수 있는 소수가 몇 개인지 return 하도록 solution 함수를 완성해주세요.
+    /// </summary>
+    /// <param name="numbers"></param>
+    /// <returns></returns>
+    public int solution15(string numbers)
+    {
+        char[] numberArray = numbers.ToCharArray();
+        List<int> numberList = new List<int>();
+        List<int> indexList = new List<int>();
+        for (int i = 0; i < numberArray.Length; i++)
+        {
+            numberList.Add(numberArray[i] - '0');
+        }
+        for (int i = 1; i <= numberArray.Length; i++)  //몇글자인지
+        {
+            plusNum(i, numberList, indexList, "");
+        }
+        int answer = 0;
+        for (int i = 0; i < answerlist.Count; i++)
+        {
+            if (is_prime(answerlist[i])) answer++;
+        }
+        return answer;
+    }
+    public List<int> answerlist = new List<int>();
+    void plusNum(int stringNum, List<int> numberList, List<int> indexList, string makeNum)
+    {
+        string tempmakeNum = makeNum;
+        for (int i = 0; i < numberList.Count; i++)
+        {
+            if (!indexList.Contains(i))
+            {
+                makeNum = tempmakeNum + numberList[i].ToString();
+                indexList.Add(i);
+                int n = int.Parse(makeNum);
+                if(stringNum == makeNum.Length && !answerlist.Contains(n)) answerlist.Add(n);
+                else if(stringNum != makeNum.Length) plusNum(stringNum, numberList, indexList, makeNum);
+                indexList.RemoveAt(indexList.Count - 1);
+            }
+
+        }
+    }
+    bool is_prime(int num)
+    {
+        if (num < 2) return false;
+        bool is_true = true;
+        for (int i = 2; i <= num/2; i++)
+        {
+            if (num % i == 0) is_true = false;
+        }
+        return is_true;
+    }
+
     void Start()
     {
         
