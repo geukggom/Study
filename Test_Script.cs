@@ -637,6 +637,49 @@ public class Test_Script
         return is_true;
     }
 
+    /// <summary>
+    /// n개의 음이 아닌 정수가 있습니다. 이 수를 적절히 더하거나 빼서 타겟 넘버를 만들려고 합니다.
+    /// </summary>
+    /// <param name="numbers"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public int solution16(int[] numbers, int target)
+    {
+        Calculate(-1, 0, numbers);
+        int count = 1;
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            count *= 2;
+        }
+        while (true)
+        {
+            if (numList.Count == count) break;
+        }
+        int answer = 0;
+        for (int i = 0; i < numList.Count; i++)
+        {
+            if (numList[i] == target) answer++;
+        }
+        return answer;
+    }
+    public List<int> numList = new List<int>();
+    void Calculate(int repeatCount, int num, int[] numbers)
+    {
+        repeatCount++;
+        if (repeatCount == numbers.Length)
+        {
+            numList.Add(num);
+            return;
+        }
+        Calculate(repeatCount, num + PlusMinus(numbers[repeatCount], true), numbers);
+        Calculate(repeatCount, num + PlusMinus(numbers[repeatCount], false), numbers);
+    }
+    int PlusMinus(int num, bool is_true)
+    {
+        if (is_true) return num;
+        else return (-1) * num;
+    }
+
     void Start()
     {
         
