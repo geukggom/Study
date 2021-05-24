@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Test_Script
 {
@@ -759,6 +760,120 @@ public class Test_Script
             n++;
         }
         return n;
+    }
+
+    /// <summary>
+    /// 길찾기
+    /// </summary>
+    /// <param name="maps"></param>
+    /// <returns></returns>
+    public int solution20(int[,] maps)
+    {
+        mapRow1 = maps.GetLength(0);
+        mapColumn2 = maps.GetLength(1);
+        int r = 0;
+        int c = 0;
+        for (int i = 1; i < maps.Length + 1; i++)
+        {
+            if (maps[r, c] == 1) maps[r, c] = i;
+            c++;
+            if (c == maps.GetLength(1))
+            {
+                c = 0;
+                r++;
+            }
+        }
+        List<int> numList = new List<int>();
+        FindRoad(mapRow1 - 1, mapColumn2 - 1, maps, 0, numList);
+        int answer;
+        if (answerList.Count > 0)
+        {
+            answer = answerList[0];
+            for (int i = 1; i < answerList.Count; i++)
+            {
+                if (answerList[i] < answer) answer = answerList[i];
+            }
+        }
+        else answer = -1;
+        return answer;
+    }
+    int mapRow1;
+    int mapColumn2;
+    public List<int> answerList = new List<int>();
+    void FindRoad(int row, int column, int[,] maps, int goNum, List<int> tempList)
+    {
+        goNum++;
+        if (row < 0 || column < 0 || row >= mapRow1 || column >= mapColumn2 || maps[row, column] == 0 || tempList.Contains(maps[row, column])) return;
+        if (maps[row, column] == 1)
+        {
+            answerList.Add(goNum);
+            return;
+        }
+        for (int i = 0; i < answerList.Count; i++)
+        {
+            if (goNum > answerList[i]) return;
+        }
+        List<int> numList = tempList.ToList();
+        numList.Add(maps[row, column]);
+        FindRoad(row - 1, column, maps, goNum, numList);
+        FindRoad(row, column - 1, maps, goNum, numList);
+        FindRoad(row + 1, column, maps, goNum, numList);
+        FindRoad(row, column + 1, maps, goNum, numList);
+    }
+
+    public int solution20Again(int[,] maps)
+    {
+        mapRow = maps.GetLength(0);
+        mapColumn = maps.GetLength(1);
+        int maxN = mapRow * mapColumn;
+        if (maxN == 2) return maxN;
+        int answer = 0;
+        int distance = 1;
+        rowNum.Clear();
+        columnNum.Clear();
+        Changemaps(mapRow - 1, mapColumn - 1, maps, distance);
+        for (int i = 2; i < maxN; i++)
+        {
+            if (rowNum.Count == 0)
+            {
+                answer = -1;
+                i = maxN;
+            }
+            else
+            {
+                int n = rowNum.Count;
+                for (int k = n - 1; k >= 0; k--)
+                {
+                    if (rowNum[k] > 0 && maps[rowNum[k] - 1, columnNum[k]] == 1) Changemaps(rowNum[k] - 1, columnNum[k], maps, i);
+                    if (rowNum[k] < mapRow - 1 && maps[rowNum[k] + 1, columnNum[k]] == 1) Changemaps(rowNum[k] + 1, columnNum[k], maps, i);
+                    if (columnNum[k] > 0 && maps[rowNum[k], columnNum[k] - 1] == 1) Changemaps(rowNum[k], columnNum[k] - 1, maps, i);
+                    if (columnNum[k] < mapColumn - 1 && maps[rowNum[k], columnNum[k] + 1] == 1) Changemaps(rowNum[k], columnNum[k] + 1, maps, i);
+                    rowNum.RemoveAt(k);
+                    columnNum.RemoveAt(k);
+                }
+                for (int j = 0; j < rowNum.Count; j++)
+                {
+                    if ((rowNum[j] == 0 && columnNum[j] == 1) || (rowNum[j] == 1 && columnNum[j] == 0))
+                    {
+                        answer = i + 1;
+                        j = rowNum.Count - 1;
+                        i = maxN - 1;
+                    }
+                }
+            }
+        }
+        if (answer == 0) answer = -1;
+        return answer;
+    }
+    public int mapRow;
+    public int mapColumn;
+    List<int> rowNum = new List<int>();
+    List<int> columnNum = new List<int>();
+    void Changemaps(int row, int column, int[,] maps, int N)
+    {
+        maps[row, column] = N;
+        rowNum.Add(row);
+        columnNum.Add(column);
     }
 
     void Start()
