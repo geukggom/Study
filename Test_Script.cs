@@ -908,6 +908,46 @@ public class Test_Script
         return answer - 1;
     }
 
+    /// <summary>
+    /// 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
+    /// </summary>
+    /// <param name="numbers"></param>
+    /// <returns></returns>
+    public string solution22(int[] numbers)
+    {
+        List<string> numbersSt = new List<string>();
+        int zeroNum = 0;
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            if (numbers[i] == 0) zeroNum++;
+            numbersSt.Add(numbers[i].ToString());
+        }
+        if (zeroNum == numbers.Length) return "0";
+        numbersSt.Sort();
+        for (int i = 0; i < numbersSt.Count - 1; i++)
+        {
+            if (changePlace(numbersSt[i], numbersSt[i + 1]))
+            {
+                string temp = numbersSt[i];
+                numbersSt[i] = numbersSt[i + 1];
+                numbersSt[i + 1] = temp;
+                i -= 2;
+                if (i < -1) i = -1;
+            }
+        }
+        string answer = "";
+        for (int i = numbers.Length - 1; i >= 0; i--)
+        {
+            answer += numbersSt[i];
+        }
+        return answer;
+    }
+    bool changePlace(string i1, string i2)
+    {
+        if (int.Parse(i1 + i2) > int.Parse(i2 + i1)) return true;
+        else return false;
+    }
+
     void Start()
     {
         
