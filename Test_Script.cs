@@ -915,31 +915,16 @@ public class Test_Script
     /// <returns></returns>
     public string solution22(int[] numbers)
     {
-        List<string> numbersSt = new List<string>();
-        int zeroNum = 0;
-        for (int i = 0; i < numbers.Length; i++)
+        string[] nn = new string[numbers.Length];
+        for (int i = 0; i < nn.Length; i++)
         {
-            if (numbers[i] == 0) zeroNum++;
-            numbersSt.Add(numbers[i].ToString());
+            nn[i] = numbers[i].ToString();
         }
-        if (zeroNum == numbers.Length) return "0";
-        numbersSt.Sort();
-        for (int i = 0; i < numbersSt.Count - 1; i++)
-        {
-            if (changePlace(numbersSt[i], numbersSt[i + 1]))
-            {
-                string temp = numbersSt[i];
-                numbersSt[i] = numbersSt[i + 1];
-                numbersSt[i + 1] = temp;
-                i -= 2;
-                if (i < -1) i = -1;
-            }
-        }
+        Array.Sort(nn, (x, y) => string.Compare(y.ToString() + x.ToString(), x.ToString() + y.ToString()));
+        //Array.Sort(nn, (a, b) => (changePlace(a, b)) ? -1 : 1);
+        if (nn[0] == "0") return "0";
         string answer = "";
-        for (int i = numbers.Length - 1; i >= 0; i--)
-        {
-            answer += numbersSt[i];
-        }
+        for (int i = 0; i < nn.Length; i++) answer += nn[i];
         return answer;
     }
     bool changePlace(string i1, string i2)
