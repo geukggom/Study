@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class Test_Script
 {
@@ -915,23 +916,14 @@ public class Test_Script
     /// <returns></returns>
     public string solution22(int[] numbers)
     {
-        string[] nn = new string[numbers.Length];
-        for (int i = 0; i < nn.Length; i++)
-        {
-            nn[i] = numbers[i].ToString();
-        }
-        Array.Sort(nn, (x, y) => string.Compare(y.ToString() + x.ToString(), x.ToString() + y.ToString()));
-        //Array.Sort(nn, (a, b) => (changePlace(a, b)) ? -1 : 1);
+        string[] nn = Array.ConvertAll(numbers, a => a.ToString());
+        Array.Sort(nn, (x, y) => string.Compare(y + x, x + y));
         if (nn[0] == "0") return "0";
-        string answer = "";
-        for (int i = 0; i < nn.Length; i++) answer += nn[i];
-        return answer;
+        StringBuilder answer = new StringBuilder();
+        for (int i = 0; i < nn.Length; i++) answer.Append(nn[i]);
+        return answer.ToString();
     }
-    bool changePlace(string i1, string i2)
-    {
-        if (int.Parse(i1 + i2) > int.Parse(i2 + i1)) return true;
-        else return false;
-    }
+
 
     void Start()
     {
