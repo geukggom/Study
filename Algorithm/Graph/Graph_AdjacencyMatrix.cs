@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class Graph_AdjacencyMatrix : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
+    
 }
