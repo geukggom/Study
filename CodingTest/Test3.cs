@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class LottoFirstLastPlace
+public class Test3  // : 로또 최고순위와 최저순위
 {
     /// <summary>
     /// 민우의 동생이 로또에 낙서를 하여, 일부 번호를 알아볼 수 없게 되었습니다. 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class GymSuit
+public class Test2  // : 체육복
 {
     /// <summary>
     /// 점심시간에 도둑이 들어, 일부 학생이 체육복을 도난당했습니다. 다행히 여벌 체육복이 있는 학생이 이들에게 체육복을 빌려주려 합니다. 
