@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class TargetNumber
+public class Test16   // : 타겟넘버
 {
     /// <summary>
     /// 타겟 넘버
