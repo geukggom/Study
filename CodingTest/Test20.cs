@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class GameMapShortestDistance
+public class Test20  // : 게임 맵 최단거리
 {
     /// <summary>
     /// 게임 맵 최단거리 찾기

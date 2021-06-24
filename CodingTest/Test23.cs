@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Carpet
+public class Test23  // : 카펫
 {
     public int[] solution(int brown, int yellow)
     {
