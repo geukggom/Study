@@ -23,7 +23,7 @@ public class BinarySearchTree : MonoBehaviour
             Node FindNode = this.head;
             while (true)
             {
-                //조건(작은 수는 왼쪽, 크거나 같은 수는 오른쪽으로)
+                //조건(작은 수는 왼쪽, 큰 수는 오른쪽으로)
                 if (data < FindNode.data) //현재 노드의 왼쪽에 새 노드가 들어가게 될 때
                 {
                     if (FindNode.left_node != null) //왼쪽 노드를 현재 노드로 지정하고 반복문 다시
@@ -34,7 +34,7 @@ public class BinarySearchTree : MonoBehaviour
                         break;
                     }
                 }
-                else //현재 노드의 오른쪽에 새 노드가 들어가게 될 때
+                else if (data > FindNode.data) //현재 노드의 오른쪽에 새 노드가 들어가게 될 때
                 {
                     if (FindNode.right_node != null) //오른쪽 노드를 현재 노드로 지정하고 반복문 다시
                         FindNode = FindNode.right_node;
@@ -44,6 +44,7 @@ public class BinarySearchTree : MonoBehaviour
                         break;
                     }
                 }
+                else return false; //중복된 값의 노드가 이미 존재할 때
             }
         }
         return true;
