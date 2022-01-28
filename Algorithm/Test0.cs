@@ -1,0 +1,90 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+public class Test0 : MonoBehaviour
+{
+    public int fact0(List<int> dataList)
+    {
+        if (dataList.Count <= 0) return 0;
+        else
+        {
+            int num = dataList[0];
+            dataList.RemoveAt(0);
+            return num + fact0(dataList);
+        }
+    }
+
+    int caseNum = 0;
+    public int fact1(int value)
+    {
+        switch (value)
+        {
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 4;
+        }
+        return fact1(value - 1) + fact1(value - 2) + fact1(value - 3);
+    }
+
+    public int fact2_Re(int data) //하향식
+    {
+        switch (data)
+        {
+            case 0: return 0;
+            case 1: return 1;
+        }
+        return fact2_Re(data - 1) + fact2_Re(data - 2);
+    }
+
+    public int fact2_Dy(int data) //상향식
+    {
+        int[] numlist = new int[data + 1];
+        numlist[0] = 0;
+        numlist[1] = 1;
+        for (int i = 2; i < data + 1; i++)
+        {
+            numlist[i] = numlist[i - 1] + numlist[i - 2];
+        }
+        return numlist[data];
+    }
+
+    public void nullable()
+    {
+        int?[] arr = new int?[3];
+
+        arr[0] = 1;
+        arr[1] = 2;
+        arr[2] = null;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log(arr[i].HasValue);
+        }
+    }
+
+    
+
+    private void Start()
+    {
+        List<int> testList = new List<int>();
+        testList.Add(8);
+        testList.Add(2);
+        testList.Add(7);
+        testList.Add(4);
+        testList.Add(1);
+        testList.Add(6);
+        testList.Add(5);
+        testList.Add(3);
+
+        //fact1(0, newList);
+        //Debug.Log(fact2_Re(9));
+        //Debug.Log(fact2_Dy(9));
+        //nullable();
+        //for (int i = 0; i < testList.Count; i++)
+        //{
+        //    Debug.Log(testList[i]);
+        //}
+    }
+}

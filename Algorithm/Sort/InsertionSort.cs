@@ -16,7 +16,7 @@ public class InsertionSort : MonoBehaviour
                     list[j + 1] = list[j];
                     list[j] = key;
                 }
-                else j = 0;
+                else break;
             }
         }
         return list;
