@@ -64,7 +64,44 @@ public class Test0 : MonoBehaviour
         }
     }
 
-    
+    public int searchIndex(int data, List<int> list)
+    {
+        if (list.Count == 0) return -1;
+        //1. 순차탐색
+        //for (int i = 0; i < list.Count; i++) 
+        //{
+        //    if (list[i] == data) return i;
+        //}
+
+        //2. 이진탐색
+        int startIndex = 0;
+        int endIndex = list.Count - 1;
+        while(true)
+        {
+            int midIndex = (startIndex + endIndex) / 2;
+            if (list[midIndex] == data) return midIndex;
+            else if (list[midIndex] > data) endIndex = midIndex - 1;
+            else startIndex = midIndex + 1;
+            if (startIndex == endIndex)
+            {
+                if (list[endIndex] == data) return endIndex;
+                break;
+            }
+        }
+        return -1; //원하는 데이터가 없을 경우
+    }
+
+    public void coinFunc(int pric, List<int> coinList)
+    {
+        int totalCount = 0;
+        int nowPrice = pric;
+        for (int i = 0; i < coinList.Count; i++)
+        {
+            int nowCount = nowPrice / coinList[i];
+            nowPrice -= coinList[i] * nowCount;
+            totalCount += nowCount;
+        }
+    }
 
     private void Start()
     {
@@ -86,5 +123,12 @@ public class Test0 : MonoBehaviour
         //{
         //    Debug.Log(testList[i]);
         //}
+
+        //List<int> money = new List<int>();
+        //money.Add(500);
+        //money.Add(100);
+        //money.Add(50);
+        //money.Add(10);
+        //coinFunc(4720, money);
     }
 }
