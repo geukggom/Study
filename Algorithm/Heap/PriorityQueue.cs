@@ -91,14 +91,13 @@ namespace js_0130
             return shortDistance;
         }
     }
-
     public class MinHeap
     {
         public List<Edge> minHeap = new List<Edge>();
 
         public bool addHeap(Edge data)
         {
-            if(minHeap.Count == 0)
+            if (minHeap.Count == 0)
             {
                 minHeap = new List<Edge>();
                 minHeap.Add(null); //0번 인덱스는 사용하지 않음(계산하기 편하게 하기 위해)
@@ -132,28 +131,23 @@ namespace js_0130
             else return false;
         }
 
-        public bool is_down(int insert_i, int i_left, int i_right)
+        public bool is_down(int insert_i)
         {
+            int i_left = insert_i * 2;
+            int i_right = insert_i * 2 + 1;
             if (i_left >= minHeap.Count) //자식 노드가 없을 때
                 return false;
             else if (i_right >= minHeap.Count)//자식 노드가 하나만 있을 때
             {
-                if (minHeap[insert_i].distance > minHeap[i_left].distance)
-                    swap(minHeap, i_left, insert_i);
+                if (minHeap[insert_i].distance > minHeap[i_left].distance) return true;
                 return false;
             }
             else //자식 노드가 두개 있을 때
             {
-                if (minHeap[insert_i].distance > minHeap[i_right].distance)
-                {
-                    swap(minHeap, i_right, insert_i);
-                    return true;
-                }
-                else if (minHeap[insert_i].distance > minHeap[i_left].distance)
-                {
-                    swap(minHeap, i_left, insert_i);
-                    return true;
-                }
+                if (minHeap[i_right].distance < minHeap[i_left].distance
+                    && minHeap[insert_i].distance > minHeap[i_right].distance) return true;
+                else if (minHeap[i_right].distance >= minHeap[i_left].distance
+                    && minHeap[insert_i].distance > minHeap[i_left].distance) return true;
                 else return false;
             }
         }
@@ -165,16 +159,29 @@ namespace js_0130
             minHeap[1] = minHeap[minHeap.Count - 1]; //마지막 값을 가져옴
             minHeap.RemoveAt(minHeap.Count - 1);
             int idx = 1;
-            int i_left = idx * 2;
-            int i_right = idx * 2 + 1;
-            while (is_down(idx, i_left, i_right))
+            int i_left, i_right;
+            while (is_down(idx))
             {
                 i_left = idx * 2;
                 i_right = idx * 2 + 1;
-                if (minHeap[idx].distance > minHeap[i_right].distance)
-                    idx = i_right;
-                else if (minHeap[idx].distance > minHeap[i_left].distance)
+                if (i_right >= minHeap.Count && minHeap[idx].distance > minHeap[i_left].distance)
+                {
+                    swap(minHeap, idx, i_left);
                     idx = i_left;
+                }
+                else if (i_right < minHeap.Count)
+                {
+                    if (minHeap[i_left].distance < minHeap[i_right].distance)
+                    {
+                        swap(minHeap, idx, i_left);
+                        idx = i_left;
+                    }
+                    else
+                    {
+                        swap(minHeap, idx, i_right);
+                        idx = i_right;
+                    }
+                }
             }
             return outData;
         }

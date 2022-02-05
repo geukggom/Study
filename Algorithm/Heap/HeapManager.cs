@@ -42,8 +42,10 @@ public class HeapManager : MonoBehaviour
         else return false;
     }
 
-    public bool is_down(int insert_i, int i_left, int i_right)
+    public bool is_down(int insert_i)
     {
+        int i_left = insert_i * 2;
+        int i_right = insert_i * 2 + 1;
         if (i_left > heapList.Count) //자식 노드가 없을 때
             return false;
         else if (i_left == heapList.Count)//자식 노드가 하나만 있을 때
@@ -54,16 +56,8 @@ public class HeapManager : MonoBehaviour
         }
         else //자식 노드가 두개 있을 때
         {
-            if (heapList[insert_i] < heapList[i_right])
-            {
-                swap(heapList, i_right, insert_i);
-                return true;
-            }
-            else if (heapList[insert_i] < heapList[i_left])
-            {
-                swap(heapList, i_left, insert_i);
-                return true;
-            }
+            if (heapList[i_right] > heapList[i_left] && heapList[insert_i] < heapList[i_right]) return true;
+            else if (heapList[i_right] <= heapList[i_left] && heapList[insert_i] < heapList[i_left]) return true;
             else return false;
         }
     }
@@ -75,16 +69,29 @@ public class HeapManager : MonoBehaviour
         heapList[1] = heapList[heapList.Count - 1]; //마지막 값을 가져옴
         heapList.RemoveAt(heapList.Count - 1);
         int idx = 1;
-        int i_left = idx * 2;
-        int i_right = idx * 2 + 1;
-        while (is_down(idx, i_left, i_right))
+        int i_left, i_right;
+        while (is_down(idx))
         {
             i_left = idx * 2;
             i_right = idx * 2 + 1;
-            if (heapList[idx] < heapList[i_right])
-                idx = i_right;
-            else if (heapList[idx] < heapList[i_left])
+            if (i_right >= heapList.Count && heapList[idx] < heapList[i_left])
+            {
+                swap(heapList, idx, i_left);
                 idx = i_left;
+            }
+            else if (i_right < heapList.Count)
+            {
+                if (heapList[i_left] > heapList[i_right])
+                {
+                    swap(heapList, idx, i_left);
+                    idx = i_left;
+                }
+                else
+                {
+                    swap(heapList, idx, i_right);
+                    idx = i_right;
+                }
+            }
         }
         return outData;
     }
