@@ -8,17 +8,11 @@ public class N_M :MonoBehaviour
 {
     static int N;
     static int M;
+    static StringBuilder sb = new StringBuilder();
 
     private void Start()
     {
-        N = 4;
-        M = 4;
-        List<int> forNM_1 = new List<int>();
-        for (int i = 1; i <= N; i++)
-        {
-            forNM_1.Add(i);
-        }
-        nm_2(0, new int[M], forNM_1);
+        Main(null);
     }
 
     static void Main(string[] args)
@@ -27,8 +21,8 @@ public class N_M :MonoBehaviour
         //N = int.Parse(str[0]);
         //M = int.Parse(str[1]);
 
-        N = 1;
-        M = 1;
+        N = 4;
+        M = 4;
 
         //nm_3(0, new int[M]);
 
@@ -49,12 +43,11 @@ public class N_M :MonoBehaviour
     {
         if(index >= M) //M개의 숫자가 정해졌을 경우 출력
         {
-            StringBuilder answer = new StringBuilder();
             for (int i = 0; i < array.Length; i++)
             {
-                answer.Append(array[i] + " ");
+                sb.Append(array[i] + " ");
             }
-            Debug.Log(answer);
+            Debug.Log(sb);
             return;
         }
         //1부터 N까지의 숫자를 재귀용법을 통해 담기
@@ -70,12 +63,11 @@ public class N_M :MonoBehaviour
     {
         if (index >= M) //M개의 숫자가 정해졌을 경우 출력
         {
-            StringBuilder answer = new StringBuilder();
             for (int i = 0; i < array.Length; i++)
             {
-                answer.Append(array[i]+" ");
+                sb.Append(array[i]+" ");
             }
-            Debug.Log(answer);
+            Debug.Log(sb);
             return;
         }
 
@@ -96,12 +88,11 @@ public class N_M :MonoBehaviour
     {
         if (index >= M) //M개의 숫자가 정해졌을 경우 출력
         {
-            StringBuilder answer = new StringBuilder();
             for (int i = 0; i < array.Length; i++)
             {
-                answer.Append(array[i] + " ");
+                sb.Append(array[i] + " ");
             }
-            Debug.Log(answer);
+            Debug.Log(sb);
             return;
         }
         //1부터 N까지의 숫자를 재귀용법을 통해 담기
@@ -117,12 +108,11 @@ public class N_M :MonoBehaviour
     {
         if (index >= M) //M개의 숫자가 정해졌을 경우 출력
         {
-            StringBuilder answer = new StringBuilder();
             for (int i = 0; i < array.Length; i++)
             {
-                answer.Append(array[i]);
+                sb.Append(array[i]);
             }
-            Debug.Log(answer);
+            Debug.Log(sb);
             return;
         }
 

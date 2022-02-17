@@ -35,13 +35,10 @@ public class OperatorInput : MonoBehaviour
             return;
         }
 
-        string[] tempOperators = new string[4];
         for (int i = 0; i < 4; i++)
         {
             int newNum = num;
-            int newCount = count;
-            tempOperators = operators.ToArray();
-            int n = int.Parse(tempOperators[i]);
+            int n = int.Parse(operators[i]);
             if (n > 0)
             {
                 switch (i)
@@ -63,10 +60,13 @@ public class OperatorInput : MonoBehaviour
                         newNum /= int.Parse(numbers[numCount - count]);
                         break;
                 }
+                count -= 1;
                 n -= 1;
-                newCount -= 1;
-                tempOperators[i] = n.ToString();
-                operInput(numbers, tempOperators, newNum, newCount);
+                operators[i] = n.ToString();
+                operInput(numbers, operators, newNum, count);
+                count += 1;
+                n += 1;
+                operators[i] = n.ToString();
             }
             
         }
