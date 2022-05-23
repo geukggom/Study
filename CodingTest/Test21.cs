@@ -34,4 +34,21 @@ public class Test21  // : 위장
         }
         return answer - 1;
     }
+
+    //2022-05-23. 문제 재풀이!
+    public static int solution(string[,] clothes)
+    {
+        int answer = 1;
+        Dictionary<string, int> clothCount = new Dictionary<string, int>();
+        for (int i = 0; i < clothes.GetLength(0); i++)
+        {
+            if (clothCount.ContainsKey(clothes[i, 1])) clothCount[clothes[i, 1]] += 1;
+            else clothCount[clothes[i, 1]] = 1;
+        }
+        foreach (var a in clothCount)
+        {
+            answer *= (a.Value + 1);
+        }
+        return answer - 1;
+    }
 }
