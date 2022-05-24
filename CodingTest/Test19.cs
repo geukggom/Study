@@ -11,32 +11,30 @@ public class Test19  // : 기능개발
     /// <returns></returns>
     public int[] solution(int[] progresses, int[] speeds)
     {
-        List<int> days = new List<int>();
-        List<int> answer = new List<int>();
-        days.Add(returnDays(progresses[0], speeds[0]));
-        answer.Add(1);
-        for (int i = 1; i < progresses.Length; i++)
+        List<int> release = new List<int>();
+        Queue<int> days = new Queue<int>();
+        int day = 0;
+        int nextDay = 0;
+        for (int i = 0; i < progresses.Length; i++)
         {
-            int a = returnDays(progresses[i], speeds[i]);
-            if (a <= days[days.Count - 1]) answer[answer.Count - 1]++;
+            day = (100 - progresses[i]) / speeds[i];
+            if ((100 - progresses[i]) % speeds[i] != 0) day++;
+            days.Enqueue(day);
+        }
+        day = days.Dequeue();
+        int dayCount = 1;
+        while (days.Count != 0)
+        {
+            nextDay = days.Dequeue();
+            if (day >= nextDay) dayCount++;
             else
             {
-                days.Add(a);
-                answer.Add(1);
+                day = nextDay;
+                release.Add(dayCount);
+                dayCount = 1;
             }
         }
-
-        return answer.ToArray();
-    }
-    int returnDays(int progress, int speed)
-    {
-        int n = 0;
-        while (true)
-        {
-            if (progress >= 100) break;
-            progress += speed;
-            n++;
-        }
-        return n;
+        release.Add(dayCount);
+        return release.ToArray();
     }
 }
