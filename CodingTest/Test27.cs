@@ -41,7 +41,7 @@ public class play : IComparable
     }
 }
 
-public class Test27 : MonoBehaviour
+public class Test27
 {
     public int[] solution(string[] genres, int[] plays)
     {
